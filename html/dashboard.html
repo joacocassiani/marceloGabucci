@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="hamburger-menu" onclick="toggleSidebar()">
+      ☰
+    </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <nav>
+        <ul>
+          <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+          <li><a href="ventas.html"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+
+          <li><a href="calendario.html"><i class="fas fa-calendar-alt"></i> Calendario</a></li>
+
+          <li><a href="cobranza.html"><i class="fas fa-cash-register"></i> Cobranza</a>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header>
+        <h1>Inicio</h1>
+      </header>
+      <div class="key-metrics">
+        <div class="key-metric">
+          <h3>Total Cobrado</h3>
+          <p id="totalCobrado">$0</p>
+        </div>
+        <div class="key-metric">
+          <h3>Total en la calle</h3>
+          <p id="totalPendiente">$0</p>
+        </div>
+        <div class="key-metric">
+          <h3>Pagos Hoy</h3>
+          <p id="pagosHoy">0</p>
+        </div>
+      </div>
+
+
+      <section id="todayPayments" class="today-payments">
+        <h3>Pagos a Cobrar Hoy</h3>
+        <button id="sendAllWhatsApp" class="btn btn-primary">Enviar mensaje a todos</button>
+        <ul id="todayPaymentsList"></ul>
+      </section>
+
+      <section class="today-payments" id="deletedSalesSection">
+        <h3>Ventas Eliminadas</h3>
+        <ul id="deletedSalesList"></ul>
+      </section>
+
+    </main>
+  </div>
+  <script type="module" src="../js/dashboard.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"></script>
+  <script type="module" src="../js/firebase-config.js"></script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar'); // Seleccionar la barra lateral
+      sidebar.classList.toggle('active'); // Alternar la clase "active" para mostrar u ocultar
+    }
+  </script>
+</body>
+</html>
