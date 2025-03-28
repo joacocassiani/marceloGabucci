@@ -92,6 +92,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   //today.setHours(0, 0, 0, 0);
   //const todayFormatted = today.toISOString().split("T")[0];
 
+  let activeLoans = 0;
+
   const salesCollection = collection(db, "sales");
   const querySnapshot = await getDocs(salesCollection);
 
@@ -133,6 +135,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     let totalPagosRealizados = 0;
     let gananciaMarceloPendiente = 0;
     let gananciaColoPendiente = 0;
+
+
 
     for (let i = 0; i < payments; i++) {
       const paymentDate = new Date(saleDate);
@@ -180,6 +184,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         todayPaymentsList.appendChild(paymentItem);
       }
     }
+    if (totalPagosRealizados < sale.total) {
+      // Todavía no está completamente pagado => está activo
+      activeLoans++;
+    };
 
     totalCobrado += totalPagosRealizados;
     totalPendiente += totalPagosPendientes;
@@ -198,6 +206,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     todayPaymentsList.appendChild(totalItem);
   }
 
+
+
+  document.getElementById("prestamosActivos").textContent = activeLoans;
+
   // Actualizar los elementos en el DOM
   totalCobradoEl.textContent = `$${Math.round(totalCobrado).toLocaleString("es-AR")}`;
   totalPendienteEl.textContent = `$${Math.round(totalPendiente).toLocaleString("es-AR")}`;
@@ -205,81 +217,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   gananciaMarceloEl.textContent = `$${Math.round(gananciaMarcelo).toLocaleString("es-AR")}`;
   gananciaColoEl.textContent = `$${Math.round(gananciaColo).toLocaleString("es-AR")}`;
 });
-
-/*
-document.addEventListener("DOMContentLoaded", async () => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const todayFormatted = today.toISOString().split("T")[0]; // Formato YYYY-MM-DD
-
-  const todayPaymentsList = document.getElementById("todayPaymentsList");
-
-  try {
-    const salesSnapshot = await getDocs(collection(db, "sales"));
-    const sales = salesSnapshot.docs.map((doc) => doc.data());
-
-    let totalPaymentsToday = 0;
-    let marceloPaymentsToday = 0;
-    let coloPaymentsToday = 0;
-
-    todayPaymentsList.innerHTML = ""; // Limpiar lista antes de agregar elementos
-
-    sales.forEach((sale) => {
-      const payments = sale.payments || 0;
-      const periodicity = sale.periodicity;
-      const cost = Number(sale.productCost) || 0;
-      const total = Number(sale.total) || 0;
-
-      for (let i = 0; i < payments; i++) {
-        const paymentDate = new Date(sale.saleDate);
-        if (periodicity === "Semanal") paymentDate.setDate(paymentDate.getDate() + i * 7);
-        if (periodicity === "Quincenal") paymentDate.setDate(paymentDate.getDate() + i * 15);
-        if (periodicity === "Mensual") paymentDate.setMonth(paymentDate.getMonth() + i);
-
-        paymentDate.setHours(0, 0, 0, 0);
-        
-        const formattedPaymentDate = paymentDate.toISOString().split("T")[0]; // Comparar en formato UTC YYYY-MM-DD
-
-        if (formattedPaymentDate === todayFormatted) {
-          const paymentAmount = total / payments;
-
-          const marceloShare = ((paymentAmount - cost / payments) * 0.5) + (cost / payments);
-          const coloShare = paymentAmount - marceloShare;
-
-          totalPaymentsToday += paymentAmount;
-          marceloPaymentsToday += marceloShare;
-          coloPaymentsToday += coloShare;
-
-          // Crear el elemento de la lista con los valores corregidos
-          const paymentItem = document.createElement("li");
-          paymentItem.innerHTML = `
-            <span>${sale.clientName}</span>: 
-            $${Math.round(paymentAmount).toLocaleString("es-AR")} - ${sale.product} 
-            (Marcelo: $${Math.round(marceloShare).toLocaleString("es-AR")}, Gaston: $${Math.round(coloShare).toLocaleString("es-AR")})
-            <button class="whatsapp-button" data-phone="${sale.phone}" data-name="${sale.clientName}" data-amount="${Math.round(paymentAmount)}" title="Enviar mensaje por WhatsApp">📞</button>
-          `;
-          todayPaymentsList.appendChild(paymentItem);
-        }
-      }
-    });
-
-    if (totalPaymentsToday === 0) {
-      todayPaymentsList.innerHTML = "<li>No hay pagos programados para hoy.</li>";
-    } else {
-      const totalItem = document.createElement("li");
-      totalItem.innerHTML = `
-        <strong>Total a cobrar hoy:</strong> 
-        $${Math.round(totalPaymentsToday).toLocaleString("es-AR")} 
-        (Marcelo: $${Math.round(marceloPaymentsToday).toLocaleString("es-AR")}, Gaston: $${Math.round(coloPaymentsToday).toLocaleString("es-AR")})
-      `;
-      todayPaymentsList.appendChild(totalItem);
-    }
-  } catch (error) {
-    console.error("Error cargando pagos a cobrar hoy:", error);
-    todayPaymentsList.innerHTML = "<li>Error al cargar los datos.</li>";
-  }
-});
-*/
 
 todayPaymentsList.addEventListener("click", (e) => {
   if (e.target.classList.contains("whatsapp-button")) {
