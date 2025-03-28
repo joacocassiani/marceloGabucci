@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           title: `${sale.clientName} - $${Math.round(paymentAmount)} - ${sale.product}`,
           start: formattedDate,
           allDay: true,
-          backgroundColor: "#3498db",
+          backgroundColor: "#1E8449",
           borderColor: "#2980b9",
         });
       }
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         totalDiv.textContent = `Total: $${Math.round(totalForDay)}`;
         totalDiv.style.fontSize = "12px";
         totalDiv.style.fontWeight = "bold";
-        totalDiv.style.color = "#000";
+        totalDiv.style.color = "#1E8449";
         totalDiv.style.textAlign = "center";
         totalDiv.style.marginTop = "5px";
 
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           newDiv.style.fontWeight = "bold";
           newDiv.style.textAlign = "center";
           newDiv.style.marginTop = "10px";
-          newDiv.style.color = "#000";
+          newDiv.style.color = "#1E8449";
           newDiv.textContent = `Total Semana: $${Math.round(totalForWeek)}`;
           calendarEl.parentElement.appendChild(newDiv);
         } else {
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           newDiv.style.fontWeight = "bold";
           newDiv.style.textAlign = "center";
           newDiv.style.marginTop = "10px";
-          newDiv.style.color = "#000";
+          newDiv.style.color = "#1E8449";
           newDiv.textContent = `Total Mes: $${Math.round(totalForMonth)}`;
           calendarEl.parentElement.appendChild(newDiv);
         } else {

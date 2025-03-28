@@ -19,7 +19,7 @@ body {
 /* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #2c3e50;
+  background-color: #145A32;
   color: #ecf0f1;
   display: flex;
   flex-direction: column;
@@ -66,15 +66,15 @@ body {
 
 
 .sidebar nav ul li a:hover {
-  background-color: #34495e;
+  background-color: #27AE60;
 }
 
 .sidebar nav ul li a.active {
-  background-color: #2e4155; /* Color de fondo para el enlace activo */
+  background-color: #27AE60; /* Color de fondo para el enlace activo */
 }
 
 .sidebar nav ul li a:hover {
-  background-color: #34495e;
+  background-color: #27AE60;
 }
 
 /* Main Content */
@@ -90,7 +90,7 @@ body {
 
 .main-content header h1 {
   font-size: 24px;
-  color: #333;
+  color: #239B56;
 }
 
 /* Cards Section */
@@ -124,7 +124,7 @@ body {
 
 .card .details {
   font-size: 14px;
-  color: #888;
+  color: #239B56;
 }
 
 /* Resumen Mensual */
@@ -197,7 +197,7 @@ body {
 }
 
 .new-sale-button {
-  background-color: #3498db;
+  background-color: #1E8449;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -209,7 +209,7 @@ body {
 }
 
 .new-sale-button:hover {
-  background-color: #2980b9;
+  background-color: #1E8449;
 }
 
 .new-sale-form {
@@ -363,7 +363,7 @@ body {
 .key-metric p {
   font-size: 24px;
   font-weight: bold;
-  color: #3498db;
+  color: #239B56;
 }
 
 .today-payments {
@@ -397,7 +397,7 @@ body {
 
 .today-payments li span {
   font-weight: bold;
-  color: #3498db;
+  color: #239B56;
 }
 
 /* Alinear los campos en la misma línea */
@@ -809,7 +809,7 @@ form input, form button {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background: #3498db;
+  background: #145A32;
   color: white;
   border-radius: 8px 8px 0 0;
 }
@@ -828,7 +828,7 @@ form input, form button {
 
 .fc-button {
   background: #ffffff;
-  color: #3498db;
+  color: #1E8449;
   border: none;
   border-radius: 4px;
   padding: 5px;
@@ -911,7 +911,7 @@ form input, form button {
   .buttons button {
     padding: 10px 15px;
     font-size: 14px;
-    background-color: #007bff;
+    background-color: #1E8449;
     color: white;
     border: none;
     border-radius: 4px;
@@ -1011,7 +1011,7 @@ form input, form button {
   }
   
   thead {
-    background-color: #007bff;
+    background-color: #145A32;
     color: white;
   }
   
