@@ -235,13 +235,12 @@ const generatePDF = (sale) => {
   const addHeader = () => {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("SOLÉCELL", 105, 15, { align: "center" });
+      doc.text("SERVICRED", 105, 15, { align: "center" });
       doc.setFontSize(12);
-      doc.text("MÁS TECNOLOGÍA POR SEMANA", 105, 22, { align: "center" });
+      doc.text("Creditos a tu medida", 105, 22, { align: "center" });
       doc.setFont("helvetica", "normal");
-      doc.text("CELULARES · SMART TV · ART. DEL HOGAR · PERFUMES IMPORTADOS", 105, 28, { align: "center" });
-      doc.text("Atención al cliente:  11-53834227", 105, 34, { align: "center" });
-      doc.text("@solecelll", 105, 40, { align: "center" });
+      doc.text("CELULARES · SMART TV · ART. DEL HOGAR · PERFUMES", 105, 28, { align: "center" });
+      doc.text("Atención al cliente:  1166365145 - Luciano", 105, 34, { align: "center" });
 
       // Línea separadora
       doc.setDrawColor(0, 0, 0);
