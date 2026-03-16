@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
+
 <body>
   <div class="dashboard-container">
     <div class="hamburger-menu" onclick="toggleSidebar()">
@@ -51,7 +53,7 @@
         </div>
         <div class="ventas-actions">
           <button class="new-sale-button" onclick="location.href='nueva-venta.html'">Nueva Venta</button>
-          
+
           <input type="text" id="searchInput" class="ventas-search" placeholder="Buscar...">
         </div>
         <div class="table-container">
@@ -69,6 +71,7 @@
                 <th>Pagos</th>
                 <th>Costo</th>
                 <th>Venta</th>
+                <th>Moneda</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
@@ -103,6 +106,11 @@
           <input type="number" id="edit-productCost"><br><br>
           <label for="edit-total">Total:</label>
           <input type="number" id="edit-total"><br><br>
+          <label for="edit-currency">Moneda:</label>
+          <select id="edit-currency">
+            <option value="ARS">ARS - Pesos Argentinos</option>
+            <option value="USD">USD - Dólares</option>
+          </select><br><br>
 
           <button id="save-edit">Guardar Cambios</button>
         </div>
@@ -124,4 +132,5 @@
     }
   </script>
 </body>
+
 </html>
