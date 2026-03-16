@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Exportar tabla a Excel
-  const exportToExcel = () => {
+  const exportToExcel = async () => {
 
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
@@ -119,7 +119,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const fileName = `Cobranza_${formatDate(startDate)}_a_${formatDate(endDate)}.xlsx`;
 
-    const workbook = XLSX.utils.table_to_book(document.getElementById("paymentTable"), { sheet: "Cobranza" });
+    // Obtener los datos filtrados con valores numéricos reales (sin formato de texto)
+    // Esto evita que SheetJS interprete el punto de miles de toLocaleString("es-AR") como decimal
+    const filteredPayments = await filterPaymentsByDate(startDate, endDate);
+
+    const excelData = [
+      ["Nombre", "Monto", "Cuota", "Fecha", "Moneda"]
+    ];
+
+    filteredPayments.forEach((payment) => {
+      excelData.push([
+        payment.name,
+        parseFloat(payment.amount), // número puro, sin formatear
+        payment.installment,
+        payment.date,
+        payment.currency,
+      ]);
+    });
+
+    const totalAmount = filteredPayments.reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
+    excelData.push(["TOTAL", Math.round(totalAmount), "", "", ""]);
+
+    const worksheet = XLSX.utils.aoa_to_sheet(excelData);
+
+    // Aplicar formato numérico con separador de miles en la columna Monto (columna B)
+    const range = XLSX.utils.decode_range(worksheet["!ref"]);
+    for (let row = 1; row <= range.e.r; row++) {
+      const cellAddress = XLSX.utils.encode_cell({ r: row, c: 1 });
+      if (worksheet[cellAddress] && typeof worksheet[cellAddress].v === "number") {
+        worksheet[cellAddress].t = "n";
+        worksheet[cellAddress].z = "#,##0";
+      }
+    }
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Cobranza");
     XLSX.writeFile(workbook, fileName);
   };
 
