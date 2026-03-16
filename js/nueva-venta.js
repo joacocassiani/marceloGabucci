@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const saleDate = document.getElementById("saleDate").value;
     const paymentCount = parseInt(document.getElementById("saleCant").value, 10);
     const periodicity = document.getElementById("periodicidad").value;
+    const currency = document.getElementById("currency").value;
     const amount = parseFloat(document.getElementById("saleAmount").value); // Monto unitario
     const cost = parseFloat(document.getElementById("productCost").value);
 
@@ -60,10 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
       product,
       quantity, // Nuevo campo
       periodicity, // Periodicidad
+      currency, // Moneda (ARS o USD)
       payments: paymentCount,
       productCost: cost, // Capturar costo
       total,
-      phone,
     };
 
     try {

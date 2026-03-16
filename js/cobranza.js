@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             amount: paymentAmount.toFixed(2),
             installment: `Cuota ${i + 1}`,
             date: paymentDate.toISOString().split("T")[0],
+            currency: sale.currency || "ARS",
           });
         }
       }
@@ -63,39 +64,41 @@ document.addEventListener("DOMContentLoaded", () => {
   // Renderizar tabla
   const renderTable = (filteredPayments) => {
     paymentTableBody.innerHTML = ""; // Limpiar la tabla
-  
+
     if (filteredPayments.length === 0) {
       const row = document.createElement("tr");
-      row.innerHTML = `<td colspan="4">No se encontraron resultados</td>`;
+      row.innerHTML = `<td colspan="5">No se encontraron resultados</td>`;
       paymentTableBody.appendChild(row);
       return;
     }
-  
+
     // Insertar cada pago como fila
     filteredPayments.forEach((payment) => {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${payment.name}</td>
         <td>$${Number(payment.amount).toLocaleString("es-AR", {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        })}</td>
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}</td>
         <td>${payment.installment}</td>
         <td>${payment.date}</td>
+        <td>${payment.currency}</td>
       `;
       paymentTableBody.appendChild(row);
     });
-  
+
     // Calcular total
     const totalAmount = filteredPayments.reduce((acc, curr) => {
       return acc + parseFloat(curr.amount);
     }, 0);
-  
+
     // Agregar fila de total al final
     const totalRow = document.createElement("tr");
     totalRow.innerHTML = `
       <td><strong>TOTAL</strong></td>
       <td><strong>$${Math.round(totalAmount).toLocaleString("es-AR")}</strong></td>
+      <td></td>
       <td></td>
       <td></td>
     `;
@@ -108,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
 
-        // Formatear fechas a DD-MM-YYYY
+    // Formatear fechas a DD-MM-YYYY
     const formatDate = (isoDate) => {
       const [year, month, day] = isoDate.split("-");
       return `${day}-${month}-${year}`;
